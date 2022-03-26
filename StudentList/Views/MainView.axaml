@@ -9,6 +9,7 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*"></RowDefinition>
 			<RowDefinition Height="10*"></RowDefinition>
+			<RowDefinition Height="*"></RowDefinition>
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="0.5*"></ColumnDefinition>
@@ -76,10 +77,12 @@
 							</DataTemplate>
 						</DataGridTemplateColumn.CellTemplate>
 					</DataGridTemplateColumn>
-					<DataGridCheckBoxColumn Header="Check" />
+					<DataGridCheckBoxColumn Header="Check" Binding="{Binding isChecked}"/>
 				</DataGrid.Columns>
 			
 			</DataGrid>
 		</Grid>
+		<Button Name="Add" Grid.Row="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding $parent[Window].DataContext.AddNewStudent}">Add</Button>
+		<Button Name="Delete" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding $parent[Window].DataContext.RemoveCheckedStudents}">Delete</Button>
 	</Grid>
 </UserControl>

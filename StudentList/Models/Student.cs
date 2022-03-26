@@ -30,6 +30,8 @@ namespace StudentList.Models
             }
         }
 
+        public bool isChecked { get; set; }
+
         public float? Average
         {
             get
@@ -93,6 +95,7 @@ namespace StudentList.Models
             ControlMarks.Add(new ControlMark(0));
             ControlMarks.Add(new ControlMark(0));
             ControlMarks.Add(new ControlMark(0));
+            this.isChecked = false;
             CalculateAverage();
         }
 
