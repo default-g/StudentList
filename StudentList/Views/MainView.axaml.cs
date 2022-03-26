@@ -10,7 +10,6 @@ namespace StudentList.Views
         public MainView()
         {
             InitializeComponent();
-
         }
         public void ShowAboutWindow(object sender, RoutedEventArgs e)
         {
