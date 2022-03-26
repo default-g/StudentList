@@ -4,21 +4,30 @@ using System;
 using System.Collections.Generic;
 using System.Reactive;
 using System.Text;
+using StudentList.Models;
+using System.Collections.ObjectModel;
+using System.Reactive.Linq;
 
 namespace StudentList.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        ViewModelBase content;
+        private ViewModelBase content;
+        ObservableCollection<Student> Items { get; set; }
         public ViewModelBase Content
         {
             get => content;
             private set => this.RaiseAndSetIfChanged(ref content, value);
         }
+
         public MainWindowViewModel()
         {
+            this.Items = new ObservableCollection<Student>();
+            Items.Add(new Student("Œ·ÛıÓ‚ ¿Ú∏Ï"));
+            Items.Add(new Student("¿¬¿"));
             this.Content = new MainViewModel();
         }
-        // ReactiveCommand<Unit, Unit> ShowAbout { get; }
+        
+        
     }
 }
