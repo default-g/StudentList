@@ -68,7 +68,8 @@
 
 					
 
-					<DataGridTextColumn Header="Average"  Binding="{Binding AverageMark}" />
+					<DataGridTextColumn Header="Average"  Binding="{Binding Average}" />
+					<DataGridCheckBoxColumn Header="Check" />
 				</DataGrid.Columns>
 			
 			</DataGrid>

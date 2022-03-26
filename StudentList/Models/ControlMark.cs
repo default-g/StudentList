@@ -4,28 +4,41 @@ using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace StudentList.Models
 {
-    internal class ControlMark
+    internal class ControlMark : INotifyPropertyChanged
     {
-        double mark;
+        float? mark;
         public Avalonia.Media.IBrush Brush { get; private set; }
-        public double Mark
+        public float? Mark
         {
             set
             {
-                this.mark = value;
-                switch(Mark)
+                switch (value)
                 {
                     case 0:
                         this.Brush = Brushes.Red;
+                        this.mark = value;
+                        break;
+                    case 1:
+                        this.Brush = Brushes.Yellow;
+                        this.mark = value;
+                        break;
+                    case 2:
+                        this.Brush = Brushes.LightGreen;
+                        this.mark = value;
                         break;
                     default:
-                        this.Brush = Brushes.Blue;
+                        this.Brush = Brushes.White;
+                        this.mark = null;
                         break;
                 }
+                RaisePropertyChangedEvent("Mark");
+
             }
             get
             {
@@ -36,5 +49,16 @@ namespace StudentList.Models
         {
             this.Mark = mark;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void RaisePropertyChangedEvent(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChangedEventArgs e = new PropertyChangedEventArgs(propertyName);
+                PropertyChanged(this, e);
+            }
+        }
     }
+
 }
