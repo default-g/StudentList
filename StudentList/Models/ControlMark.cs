@@ -7,13 +7,17 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace StudentList.Models
 {
-    internal class ControlMark : INotifyPropertyChanged
+    public class ControlMark : INotifyPropertyChanged
     {
         float? mark;
+
+        [XmlIgnore]
         public Avalonia.Media.IBrush Brush { get; private set; }
+
         public float? Mark
         {
             set
@@ -48,6 +52,11 @@ namespace StudentList.Models
         public ControlMark(float mark)
         {
             this.Mark = mark;
+        }
+
+        public ControlMark()
+        {
+            this.Mark = 0;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

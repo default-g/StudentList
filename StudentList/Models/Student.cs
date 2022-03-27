@@ -8,16 +8,23 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace StudentList.Models
 {
-    internal class Student: INotifyPropertyChanged
+    [Serializable]
+    public class Student: INotifyPropertyChanged
     {
         public string Name { set; get; }
+
+
         public ObservableCollection<ControlMark> ControlMarks { get; set; }
+
         float? average;
-        Avalonia.Media.IBrush averageBrush;
-        public Avalonia.Media.IBrush AverageBrush
+        [XmlIgnore]
+        Avalonia.Media.SolidColorBrush averageBrush;
+        [XmlIgnore]
+        public Avalonia.Media.SolidColorBrush AverageBrush
         {
             get
             {
@@ -29,9 +36,9 @@ namespace StudentList.Models
                 RaisePropertyChangedEvent("AverageBrush");
             }
         }
-
+        [XmlIgnore]
         public bool isChecked { get; set; }
-
+        [XmlIgnore]
         public float? Average
         {
             get
@@ -44,24 +51,24 @@ namespace StudentList.Models
                 {
                     if (value < 1.5)
                     {
-                        this.AverageBrush = Brushes.Yellow;
+                        this.AverageBrush = new SolidColorBrush(Brushes.Yellow.Color);
                         this.average = value;
                     }
                     if (value < 1)
                     {
-                        this.AverageBrush = Brushes.Red;
+                        this.AverageBrush = new SolidColorBrush(Brushes.Red.Color);
                         this.average = value;
                     }
                     if (value >= 1.5)
                     {
-                        this.AverageBrush = Brushes.LightGreen;
+                        this.AverageBrush = new SolidColorBrush(Brushes.LightGreen.Color);
                         this.average = value;
                     }
                 }
                 else
                 {
                     this.average = null;
-                    this.AverageBrush = Brushes.White;
+                    this.AverageBrush = new SolidColorBrush(Brushes.White.Color);
                 }
        
                 RaisePropertyChangedEvent("Average");
@@ -92,6 +99,20 @@ namespace StudentList.Models
             this.Name = name;
             this.ControlMarks = new ObservableCollection<ControlMark>();
             this.ControlMarks.CollectionChanged += MyItemsSource_CollectionChanged;
+            this.ControlMarks.Clear();
+            ControlMarks.Add(new ControlMark(0));
+            ControlMarks.Add(new ControlMark(0));
+            ControlMarks.Add(new ControlMark(0));
+            this.isChecked = false;
+            CalculateAverage();
+        }
+
+        public Student()
+        {
+            this.Name = "NULL";
+            this.ControlMarks = new ObservableCollection<ControlMark>();
+            this.ControlMarks.CollectionChanged += MyItemsSource_CollectionChanged;
+            this.ControlMarks.Clear();
             ControlMarks.Add(new ControlMark(0));
             ControlMarks.Add(new ControlMark(0));
             ControlMarks.Add(new ControlMark(0));

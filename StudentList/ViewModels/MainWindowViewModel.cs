@@ -8,6 +8,9 @@ using StudentList.Models;
 using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using System.Linq;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Serialization;
 
 namespace StudentList.ViewModels
 {
@@ -40,14 +43,58 @@ namespace StudentList.ViewModels
         public MainWindowViewModel()
         {
             this.Items = new ObservableCollection<Student>();
-            Items.Add(new Student("Обухов Артём AKA ПОПКА"));
-            Items.Add(new Student("Столяров Денис"));
-            Items.Add(new Student("Малышев Владимир"));
-            Items.Add(new Student("Гулая Анастасия"));
-            Items.Add(new Student("Петровский Влад"));
             this.Content = new MainViewModel();
         }
-        
-        
+
+        public void WriteToBinaryFile(string filePath)
+        {
+            XmlSerializer xs = new XmlSerializer(typeof(ObservableCollection<Student>));
+           
+            using (StreamWriter wr = new StreamWriter(filePath))
+            {
+                xs.Serialize(wr, this.Items);
+            }
+        }
+
+        public void ReadFromBinaryFile(string filePath)
+        {
+            XmlSerializer xs = new XmlSerializer(typeof(ObservableCollection<Student>));
+            using (StreamReader sr = new StreamReader(filePath))
+            {
+                this.Items.Clear();
+                try
+                {
+                    this.Items = (ObservableCollection<Student>)xs.Deserialize(sr);
+                    foreach (Student s in this.Items)
+                    {
+                        var gradeList = new List<ControlMark>(3);
+                        gradeList.Add(s.ControlMarks[3]);
+                        gradeList.Add(s.ControlMarks[4]);
+                        gradeList.Add(s.ControlMarks[5]);
+                        s.ControlMarks.Clear();
+                        foreach (ControlMark mark in gradeList)
+                        {
+                            s.ControlMarks.Add(mark);
+                        }
+                        s.CalculateAverage();
+                    }
+                } catch (Exception ex)
+                {
+                    
+                }
+            }
+           
+        }
+
+        public void OpenFileView()
+        {
+            this.Content = new FileViewModel();
+        }
+
+        public void OpenMainView()
+        {
+            this.Content = new MainViewModel();
+        }
+
     }
 }

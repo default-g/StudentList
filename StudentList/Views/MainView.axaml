@@ -5,7 +5,7 @@
 			 xmlns:local="using:StudentList.Models"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="StudentList.Views.MainView">
-	<Grid ShowGridLines="True">
+	<Grid ShowGridLines="False">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*"></RowDefinition>
 			<RowDefinition Height="10*"></RowDefinition>
@@ -15,7 +15,7 @@
 			<ColumnDefinition Width="0.5*"></ColumnDefinition>
 			<ColumnDefinition Width="0.5*"></ColumnDefinition>
 		</Grid.ColumnDefinitions>
-		<Button Name="File" Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >File</Button>
+		<Button Name="File" Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding $parent[Window].DataContext.OpenFileView}" >File</Button>
 		<Button Name="About" Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ShowAboutWindow">About</Button>
 		<Grid Grid.Row="1" Grid.ColumnSpan="2" >
 			<DataGrid Items="{Binding $parent[Window].DataContext.Items}" AutoGenerateColumns="False" Name="StudentList">

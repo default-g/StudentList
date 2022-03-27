@@ -17,6 +17,7 @@ namespace StudentList.Views
             dialogWindow.ShowDialog((Window)this.Parent);
         }
 
+
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
