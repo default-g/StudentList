@@ -10,6 +10,7 @@
 			<RowDefinition Height="*"></RowDefinition>
 			<RowDefinition Height="10*"></RowDefinition>
 			<RowDefinition Height="*"></RowDefinition>
+			<RowDefinition Height="*"></RowDefinition>
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="0.5*"></ColumnDefinition>
@@ -82,7 +83,17 @@
 			
 			</DataGrid>
 		</Grid>
-		<Button Name="Add" Grid.Row="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding $parent[Window].DataContext.AddNewStudent}">Add</Button>
-		<Button Name="Delete" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding $parent[Window].DataContext.RemoveCheckedStudents}">Delete</Button>
+		<Grid Grid.Row="2" Grid.ColumnSpan="2" ShowGridLines="True">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<TextBlock Grid.Column="0" TextAlignment="Center" VerticalAlignment="Center" Background="{Binding $parent[Window].DataContext.AverageGradesBrushes[0]}" Text="{Binding $parent[Window].DataContext.AverageGrades[0]}"></TextBlock>
+			<TextBlock Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center" Background="{Binding $parent[Window].DataContext.AverageGradesBrushes[1]}" Text="{Binding $parent[Window].DataContext.AverageGrades[1]}"></TextBlock>
+			<TextBlock Grid.Column="2" TextAlignment="Center" VerticalAlignment="Center" Background="{Binding $parent[Window].DataContext.AverageGradesBrushes[2]}" Text="{Binding $parent[Window].DataContext.AverageGrades[2]}"></TextBlock>
+		</Grid>
+		<Button Name="Add" Grid.Row="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding $parent[Window].DataContext.AddNewStudent}">Add</Button>
+		<Button Name="Delete" Grid.Row="3" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding $parent[Window].DataContext.RemoveCheckedStudents}">Delete</Button>
 	</Grid>
 </UserControl>

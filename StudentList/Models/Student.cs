@@ -17,8 +17,18 @@ namespace StudentList.Models
     {
         public string Name { set; get; }
 
-
-        public ObservableCollection<ControlMark> ControlMarks { get; set; }
+        ObservableCollection<ControlMark> controlMarks;
+        public ObservableCollection<ControlMark> ControlMarks {
+            get
+            {
+                return controlMarks;
+            }
+            set
+            {
+                this.controlMarks = value;
+                RaisePropertyChangedEvent("ControlMarks");
+            }
+        }
 
         float? average;
         [XmlIgnore]
